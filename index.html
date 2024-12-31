@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תסריט שיחה - טרייסר טכנולוגיות</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+        }
+
+        :root {
+            --primary: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-light: #f8fafc;
+            --gray-dark: #1f2937;
+            --section-gap: 3rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--gray-light);
+            color: var(--gray-dark);
+            line-height: 1.8;
+            padding: 2rem;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        .flow-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 3rem;
+            margin-bottom: var(--section-gap);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #e5e7eb;
+        }
+
+        .flow-section::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: var(--section-gap);
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            display: none;
+        }
+
+        .flow-section:not(:last-child)::before {
+            display: block;
+        }
+        
+        .flow-section::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 1rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .flow-section:hover::after {
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.1), transparent);
+            border-radius: 0.5rem;
+            border-right: 4px solid var(--primary);
+            font-weight: 700;
+        }
+
+        .section-title i {
+            font-size: 1.8rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            color: var(--gray-dark);
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            background-size: 100% 100%;
+        }
+
+        .response-box {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .response-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .response-yes {
+            border-color: var(--success);
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.1), transparent);
+        }
+
+        .response-no {
+            border-color: var(--danger);
+            background: linear-gradient(to right, rgba(239, 68, 68, 0.1), transparent);
+        }
+
+        .response-box strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--gray-dark);
+        }
+
+        .response-box::before {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 50%;
+            padding: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .response-yes::before {
+            content: "\f00c";
+            color: var(--success);
+        }
+
+        .response-no::before {
+            content: "\f00d";
+            color: var(--danger);
+        }
+
+        .listen-prompt {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #e0f2fe;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .question-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .question-item:hover {
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateX(-10px);
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        .question-icon {
+            color: white;
+            font-size: 1.5rem;
+            padding: 1rem;
+            background: var(--primary);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .closing-section {
+            background: #fee2e2;
+            border: 2px solid var(--danger);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+                            <img src="https://tracer.co.il/wp-content/uploads/elementor/thumbs/Logo-H-p8d906f0bmrgobnn9uwquzibery89mtbvr1plpc910.png" alt="Tracer Logo" class="logo" style="width: 300px; height: auto; margin: 2rem 0;">
+        </header>
+
+        <div class="flow-section">
+            <div class="section-title">
+                <i class="fas fa-handshake"></i>
+                פתיח מעניין ומזמין לשיחה
+            </div>
+            <p>"<span class="highlight">היי, זה צחי מטרייסר טכנולוגיות</span>, פנית אלינו בעבר דרך האתר שלנו – זוכר אותנו?"</p>
+            
+            <div class="response-box response-yes">
+                <strong>אם הלקוח עונה "כן":</strong>
+                <p>"<span class="highlight">איזה יופי!</span> אני מאמין שאתה זוכר שאנחנו מתמחים במתן פתרונות לניהול עובדי שטח וציי רכבים."</p>
+            </div>
+            
+            <div class="response-box response-no">
+                <strong>אם הלקוח עונה "לא":</strong>
+                <p>"אין בעיה, אני אזכיר לך בקצרה. אנחנו מתמקדים בפתרונות חכמים שמסייעים לנהל עובדי שטח ורכבים בצורה יעילה ומדויקת, כך שתוכל לחסוך זמן, להקטין הוצאות דלק ולשפר את השליטה על הפעילות היומיומית שלך."</p>
+            </div>
+
+            <div class="listen-prompt" style="animation: pulse 2s infinite, glow 2s infinite; background: #fee2e2; padding: 1.5rem; border-radius: 1rem; border: 2px solid var(--danger); margin: 2rem 0;">
+                <i class="fas fa-hand-paper" style="font-size: 2rem; color: var(--danger); margin-left: 1rem;"></i>
+                <div>
+                    <strong style="font-size: 1.3rem; color: var(--danger); display: block; margin-bottom: 0.5rem;">עצור! תן ללקוח לדבר</strong>
+                    <p style="color: var(--danger);">זה הזמן להקשיב ללקוח... תן לו להביע את דעתו</p>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(to right, rgba(37, 99, 235, 0.05), transparent); border-right: 4px solid var(--primary); margin: 2rem 0; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);">
+                <div style="display: flex; gap: 1.5rem; align-items: start;">
+                    <div style="background: white; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <i class="fas fa-building-user" style="font-size: 2rem; color: var(--primary);"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem; font-weight: 600;">מי אנחנו?</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.8;">ספר ללקוח קצת על החברה, אנחנו <span class="highlight">בית תוכנה המתמחה במתן פתרונות לניהול עובדי שטח</span>. אני יותר מאשמח להסביר לך איך אנחנו <span class="highlight">חוסכים לעסקים דלק ועלויות תפעוליות ביום יום</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flow-section">
+            <div class="section-title">
+                <i class="fas fa-magnifying-glass"></i>
+                שאלות גירוד
+            </div>
+            <ul class="question-list">
+                <li class="question-item">
+                    <i class="fas fa-building question-icon"></i>
+                    <p>"מאיזה תחום העסק שלך? אתה <span class="highlight">קבלן, מנהל סוכני שטח</span>, מכירות או טכנאים?"</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-users question-icon"></i>
+                    <p>"כמה רכבים או עובדי שטח יש לך בעסק?"</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-gear question-icon"></i>
+                    <p>"אתם משתמשים כיום באיתוראן, פוינטר או מערכת אחרת?"</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flow-section">
+            <div class="section-title">
+                <i class="fas fa-star"></i>
+                שאלות זהב (לעורר ערך)
+            </div>
+            <ul class="question-list">
+                <li class="question-item">
+                    <i class="fas fa-chart-line question-icon"></i>
+                    <p>"יש לך סטטיסטיקה על העובדים שלך? לדוגמה, <span class="highlight">כמה הם עולים לך בזמן עבודה</span>, כמה קילומטרים הם נוסעים בזמן עבודה או מחוצה לה, וכמה זה עלה לך בפועל?"</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-clock question-icon"></i>
+                    <p>"יש לך מידע מדויק על <span class="highlight">כמה זמן כל עובד נמצא אצל לקוח</span> או באתר עבודה? ואם זה היה מתנהל בצורה אוטומטית לפי החניה של הרכב, בלי תלות ביד אדם, שיהיה לך כלי להשוות למה שקורה בפועל?"</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-road question-icon"></i>
+                    <p>"אתה מקבל התראות על <span class="highlight">כניסה ויציאה מכבישי אגרה</span>? אתה יודע כמה זה עולה לך כל חודש? כמה הם נוסעים שם בזמן עבודה ולא בזמן עבודה?"</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-house question-icon"></i>
+                    <p>"אתה מקבל התראות על <span class="highlight">יציאות וכניסות של העובדים מהבית</span>? ואני לא מדבר על התראה סטנדרטית כמו מנוע פועל או כובה, אלא משהו שמראה לך את התמונה המלאה על ההתנהלות שלהם."</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-bell question-icon"></i>
+                    <p>"יש לך התראות מותאמות אישית על <span class="highlight">אירועים חריגים</span>, כמו שעות עבודה לא תקינות או שימוש לא מאושר ברכב? זה משהו שסמנכ"ל הפרויקטים שלנו יכול להתאים לך בפגישה בדיוק לפי הצרכים שלך."</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flow-section">
+            <div class="section-title">
+                <i class="fas fa-calendar-check"></i>
+                סגירת פגישה
+            </div>
+            <p>"<span class="highlight">תראה</span>, אני רוצה לתאם לך פגישה של 10 דקות עם סמנכ"ל הפרויקטים שלנו. הוא יראה לך בדיוק איך זה עובד על לקוח דומה לעסק שלך. זה ייתן לך כלים לקבל החלטה עסקית חכמה יותר – מתי נוח לך, בתחילת שבוע הבא או ביום רביעי?"</p>
+        </div>
+
+        <div class="closing-section">
+            <i class="fas fa-bullseye fa-2x mb-4"></i>
+            <p>"אנחנו מייצרים עבורך מערכת שלמה של שליטה ובקרה, שמאפשרת לך לצמצם 'אבטלה סמויה' ולמנוע כדורי שלג שיכולים לעלות לעסק המון כסף."</p>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate sections on scroll
+        gsap.from(".flow-section", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: ".flow-section",
+                start: "top 80%",
+            }
+        });
+    </script>
+</body>
+</html>
