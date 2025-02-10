@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תסריט שיחה - טרייסר עלוקה</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-light: #f8fafc;
+            --gray-dark: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--gray-light);
+            color: var(--gray-dark);
+            line-height: 1.8;
+            padding: 2rem;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+        }
+
+        .section:last-child::after {
+            display: none;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: linear-gradient(to right, rgba(37, 99, 235, 0.1), transparent);
+            border-radius: 0.5rem;
+            border-right: 4px solid var(--primary);
+        }
+
+        .section-title i {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fef3c7 0%, #fef3c7 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            padding: 0.2rem 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .dialog-box {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            border-right: 4px solid var(--primary);
+        }
+
+        .client-response {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 2rem;
+            border-right: 4px solid var(--warning);
+        }
+
+        .question-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .question-item {
+            display: flex;
+            align-items: start;
+            gap: 1.5rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .question-item:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .question-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .product-description {
+            background: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            border: 2px solid var(--primary);
+        }
+
+        .back-to-menu {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-menu:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Logo -->
+        <header>
+            <img src="https://tracer.co.il/wp-content/uploads/elementor/thumbs/Logo-H-p8d906f0bmrgobnn9uwquzibery89mtbvr1plpc910.png" alt="Tracer Logo" style="width: 300px; height: auto;">
+        </header>
+
+        <!-- 1. פתיחת שיחה -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-handshake"></i>
+                פתיחת שיחה
+            </div>
+            <div class="dialog-box">
+                <p>"שלום, צחי מטרייסר טכנולגיות אני רואה שפנית אלינו בקשר לעלוקה ל<span class="highlight">(סוג הכלי שהוא פנה)</span> איך אני יכול לעזור?"</p>
+            </div>
+
+            <div class="client-response">
+                <strong>תגובת לקוח:</strong>
+                <p>"רציתי לשמוע פרטים"</p>
+            </div>
+
+            <div class="dialog-box">
+                <p><strong>אם הלקוח שואל כמה זה עולה:</strong></p>
+                <p>"החל מ 800\1200 שח כולל שנה אחריות שירות סים ואפליקציה, לאחר שנה 49 שח כל חודש, אבל אתה לא רוצה לשמוע קודם כל מה זה נותן לך?"</p>
+            </div>
+        </div>
+
+        <!-- 2. שאלות מקדימות -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-question-circle"></i>
+                שאלות מקדימות
+            </div>
+            <ul class="question-list">
+                <li class="question-item">
+                    <i class="fas fa-motorcycle question-icon"></i>
+                    <p>איזה אופנוע יש לך?</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-shield-alt question-icon"></i>
+                    <p>יש לך ביטוח מקיף?</p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-parking question-icon"></i>
+                    <p>איפה אתה חונה את הכלי בדרך כלל? <span class="text-gray-500">(הרעיון הוא להבין אם הוא בתוך חניון בלי קליטה או משהו)</span></p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-clock question-icon"></i>
+                    <p>כמה זמן ביום הכלי בנסיעה בממוצע? <span class="text-gray-500">(הרעיון פה להבין כמה זמן ריאלית המגנט יחזיק לו)</span></p>
+                </li>
+                <li class="question-item">
+                    <i class="fas fa-bell question-icon"></i>
+                    <p>אתה מעדיף לקבל התראה בלילה על כל נגיעה בכלי? או רק שמניעים את כלי)? או רק שהכלי יצא מאזור הבית שלך? אני אגיד לך למה אני שואל… כי מה לעשות, העולם לא מושלם… אם אנחנו מגדירים התראה על כל נגיעה - אתה תקבל התראות שווא! מספיק חתולה התיישבה לך על האופנוע או רוח חזקה וזה יתריע. וזה מקפיץ ומבהיל ואתה לא רוצה התקפי לב, נכון?</p>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3. תיאור המוצר -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-box-open"></i>
+                תיאור המוצר
+            </div>
+            <div class="product-description">
+                <p>מעולה אז יש לנו את העלוקה הפאסיבית, מכשיר עם סוללה של 10,000 מיליאמפר בלי חיווט למצבר \ כבלים ואתה יכול להסליק אותו איפה שאתה רוצה(מגנט)</p>
+                <p>יש לו חיישני רטט - שיתנו לך התראה על כל נגיעה הכי קטנה בכלי שלך ישירות לוואטסאפ ואם מישהו יגע לך בכלי בין 00:00 ל 06:00 בבוקר אנחנו נתקשר אליך 5 פעמים עד שתענה לטלפון, כמובן שזה מגיע עם אפליקציה שאתה יכול לראות את המיקום של האופנוע שלך בלחיצת כפתור</p>
+                <p>חשוב לי להדגיש שכל ההתראות מגיעות אליך בזמן אמת עד כן יש?</p>
+            </div>
+        </div>
+
+        <!-- 4. שאלות ותשובות נפוצות -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-comments"></i>
+                שאלות ותשובות נפוצות
+            </div>
+
+            <!-- שאלה על טעינה -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-battery-full text-success"></i>
+                    <strong>אם הלקוח שואל: "כל כמה זמן צריך להטעין את המכשיר?"</strong>
+                </div>
+                <div class="border-r-4 border-success pr-4 mt-2">
+                    <p>אם נוסע כל יום: "פעם בחודש"</p>
+                    <p>אם לא נוסע כל יום: "פעם בחודש וחצי-חודשיים"</p>
+                </div>
+            </div>
+
+            <!-- הסבר על חיי סוללה -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-question-circle text-warning"></i>
+                    <strong>אם הלקוח שואל: "למה?"</strong>
+                </div>
+                <p>"כאשר הכלי שלך בחניה המכשיר משדר את המיקום האחרון ומתעורר רק מתי שנוגעים בו - מתוך כוונה לחסוך בסוללה ושהוא לא יטעין את המכשיר כל שבועיים"</p>
+            </div>
+
+            <!-- שאלת מחיר -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-tag text-primary"></i>
+                    <strong>אם הלקוח שואל על מחיר:</strong>
+                </div>
+                <div class="mb-4">
+                    <p class="mb-2">"תראה, מדובר פה במכשיר שלא מתחבר למצבר, מתקשר אליך בזמן אמת במידה ומישהו מנסה לגנוב לך את הכלי, וכמובן יש לך את האפליקציה שלנו עם מיקום."</p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-2 border-primary mt-2">
+                        <p class="font-bold">המחיר הוא 1200 ש"ח כולל מע"מ וכולל:</p>
+                        <ul class="mr-6 mt-2 space-y-1">
+                            <li><i class="fas fa-calendar-check text-success ml-2"></i>שנה חינם</li>
+                            <li><i class="fas fa-shield-alt text-success ml-2"></i>אחריות</li>
+                            <li><i class="fas fa-mobile-alt text-success ml-2"></i>שירות אפליקציה</li>
+                            <li><i class="fas fa-phone-volume text-success ml-2"></i>מוקד התראות טלפוני</li>
+                            <li><i class="fab fa-whatsapp text-success ml-2"></i>מוקד התראות וואטסאפ</li>
+                            <li><i class="fas fa-sim-card text-success ml-2"></i>סים</li>
+                        </ul>
+                        <p class="mt-4">לאחר שנה 49 ש"ח כל חודש</p>
+                    </div>
+                </div>
+                <p class="text-primary"><i class="fas fa-question-circle ml-2"></i>כאן אפשר לשלב: "כמה שווה האופנוע שלך?"</p>
+            </div>
+
+            <!-- הדגשים חשובים -->
+            <div class="product-description">
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-circle text-warning ml-2"></i>
+                    <strong>חשוב להדגיש:</strong>
+                    <ul class="mr-6 mt-2 space-y-2">
+                        <li>ההתראות על חיישן הרטט מגיעות בזמן אמת</li>
+                        <li>המיקום באפליקציה מתעדכן כל 5 דקות</li>
+                        <li class="text-danger font-bold">חשוב להדגיש בפני הלקוח שמה שמעניין אותו זה חיישן הרטט שעובד בזמן אמת ולא המיקום - אם יגנבו לו את הכלי זה כבר יהיה מאוחר מידי</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. התנגדויות נפוצות -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-comments-dollar"></i>
+                התנגדויות נפוצות
+            </div>
+
+            <!-- תשלום חודשי -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2 text-warning">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <strong>התנגדות: "למה אני צריך לשלם תשלום חודשי?"</strong>
+                </div>
+                <p>"יש לנו אפליקציה לטלפון, שמתקשרת אליך ושולחת לך התראות בזמן אמת מעבר לזה אנחנו מספקים לך גם כרטיס סים בתוך היחידה, העלות החודשית עבור פקידה דיגיטלית שמתקשרת אליך ושולחת לך התראות בוואטסאפ זה 49 שח לחודש כמובן תזכור תמיד שיש לך גם אפליקציה בטלפון שמראה לך את המיקום של האופנוע של 24\7"</p>
+            </div>
+
+            <!-- השוואה לאיתוראן -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2 text-warning">
+                    <i class="fas fa-not-equal"></i>
+                    <strong>התנגדות: "במה זה שונה מאיתוראן \ פוינטר?"</strong>
+                </div>
+                <div class="space-y-2">
+                    <p>"שאלה מצוינת, אני אסביר לך בדיוק מה ההבדל באיתוראן אתה תלוי באדם שרואה נטפליקס \ מדבר בטלפון \ יכול לעשות משהו אחר במהלך הלילה, וההתראה יכולה להגיע אליך לא בזמן אמת."</p>
+                    <p>"כאן אתה תלוי בעצמך, מישהו נגע לך בכלי בום אתה מקבל שיחת טלפון אם זה במהלך היום בום אתה מקבל התראה בוואטסאפ"</p>
+                    <p>"אז ככה ככה שכאן אתה תלוי בעצמך, אתה צריך להחליט מה יותר מתאים לך, להיות תלוי בעצמך או במישהו אחר."</p>
+                    <p class="text-primary"><i class="fas fa-plus-circle ml-2"></i>תוסיף לזה שהמכשיר לא מחובר למצבר</p>
+                </div>
+            </div>
+
+            <!-- משבש תדרים -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2 text-warning">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <strong>התנגדות: "משבש תדרים?"</strong>
+                </div>
+                <p>יש התראה על כניסה ויציאה מסלולר</p>
+            </div>
+
+            <!-- מנוי חודשי -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2 text-warning">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <strong>התנגדות: "מתנגד למנוי חודשי \ יקר לו"</strong>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg border-2 border-warning">
+                    <p class="mb-2">להזכיר ללקוח כמה הכלי שלו שווה</p>
+                    <p class="mb-2">"אתה לא רוצה לקבל התראה כל פעם שמישהו נוגע לך באופנוע במיוחד בלילה?"</p>
+                    <div class="mt-4 p-4 bg-white rounded-lg border-2 border-danger">
+                        <p class="font-bold text-danger mb-2">חשוב להדגיש:</p>
+                        <p>המהות כאן מאוד מאוד קלה - בן אדם שאין לו ביטוח מקיף ויש לו אופנוע\כלי ששווה יותר מ-25,000 אלף ש"ח:</p>
+                        <ul class="mr-6 mt-2 space-y-1">
+                            <li><i class="fas fa-check-circle text-success ml-2"></i>זה כלכלי לו</li>
+                            <li><i class="fas fa-bed text-success ml-2"></i>זה יעזור לו לישון בשקט</li>
+                            <li><i class="fas fa-shield-alt text-success ml-2"></i>זה יעזור לו לאבטח את הכלי שלו במצב שיקרה משהו!</li>
+                        </ul>
+                        <p class="mt-4 font-bold">כי זה מקפיץ לו התראה בזמן אמת! בין אם זה שיחת טלפון \ וואטסאפ אפליקציה</p>
+                        <p class="text-danger mt-2">הלקוח חייב להבין את זה אחרת הוא לא יקנה.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- התראות נוספות -->
+            <div class="dialog-box">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-bell text-primary"></i>
+                    <strong>התראות נוספות:</strong>
+                </div>
+                <p>התראה על כניסה ויציאה מאזור חניה קבוע \ בית.</p>
+            </div>
+        </div>
+
+        <!-- 6. שאלות נפוצות -->
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-question-circle"></i>
+                שאלות נפוצות
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- גודל המכשיר -->
+                <div class="dialog-box">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-box text-primary"></i>
+                        <strong>מה הגודל של המכשיר?</strong>
+                    </div>
+                    <p>קופסאת סיגריות</p>
+                </div>
+
+                <!-- זמן טעינה -->
+                <div class="dialog-box">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-charging-station text-primary"></i>
+                        <strong>כמה זמן לוקח להטעין את הסוללה?</strong>
+                    </div>
+                    <p>בין 4-8 שעות תלוי בראשון מטען שאתה משתמש</p>
+                </div>
+
+                <!-- טעינה בנסיעה -->
+                <div class="dialog-box">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-motorcycle text-primary"></i>
+                        <strong>אפשר להטעין תוך כדי נסיעה?</strong>
+                    </div>
+                    <p>כן</p>
+                </div>
+
+                <!-- זמן סוללה -->
+                <div class="dialog-box">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-battery-full text-primary"></i>
+                        <strong>לכמה זמן מספיקה הסוללה?</strong>
+                    </div>
+                    <ul class="mr-6 space-y-1">
+                        <li><i class="fas fa-calendar-day text-success ml-2"></i>נסיעה כל יום: חודש - חודש וחצי</li>
+                        <li><i class="fas fa-calendar-week text-success ml-2"></i>נסיעה 2\3 פעמים בשבוע: חודש וחצי - חודשיים</li>
+                    </ul>
+                </div>
+
+                <!-- ביטוח -->
+                <div class="dialog-box">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-file-contract text-primary"></i>
+                        <strong>האם אתם מוכרים בביטוח?</strong>
+                    </div>
+                    <p>לא</p>
+                </div>
+
+                <!-- העברה -->
+                <div class="dialog-box">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-exchange-alt text-primary"></i>
+                        <strong>האם ניתן להעביר את המכשיר ממקום למקום?</strong>
+                    </div>
+                    <p>כן</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- כפתור חזרה לתפריט -->
+    <a href="menu.html" class="back-to-menu">
+        <i class="fas fa-home"></i>
+    </a>
+</body>
+</html> 
