@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טופס הזמנה - טרייסר טכנולוגיות</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .float-in {
+            animation: float-in 0.8s ease-out;
+        }
+
+        @keyframes float-in {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .submit-button {
+            background: linear-gradient(45deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .pickup-button {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pickup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .success-animation {
+            animation: success-slide-up 0.5s ease forwards;
+        }
+
+        @keyframes success-slide-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .success-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .confirmation-warning {
+            background: #fff3cd;
+            border: 2px solid #f59e0b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .confirmation-warning i {
+            font-size: 1.5rem;
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container mx-auto max-w-4xl float-in">
+        <!-- Logo Container -->
+        <div class="text-center mb-8">
+            <img src="https://tracer.co.il/wp-content/uploads/elementor/thumbs/Logo-H-p8d906f0bmrgobnn9uwquzibery89mtbvr1plpc910.png" 
+                 alt="Tracer Logo" 
+                 class="h-16 mx-auto mb-4 hover:scale-105 transition-transform">
+        </div>
+
+        <!-- Form Container -->
+        <div class="glass rounded-2xl p-8 shadow-2xl">
+            <h1 class="text-2xl font-bold text-gray-800 text-center mb-8">טופס הזמנה</h1>
+            
+            <form id="orderForm" class="space-y-6">
+                <!-- סוג לקוח -->
+                <div class="form-group">
+                    <label class="form-label">סוג לקוח</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div class="relative">
+                            <input type="radio" id="private" name="customerType" value="private" class="hidden peer" checked>
+                            <label for="private" class="block p-4 text-center border-2 rounded-lg cursor-pointer hover:bg-blue-50 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                <i class="fas fa-user text-2xl mb-2"></i>
+                                <div class="font-semibold">לקוח פרטי</div>
+                                <div class="text-sm text-gray-500">ללא פרטי חברה</div>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" id="business" name="customerType" value="business" class="hidden peer">
+                            <label for="business" class="block p-4 text-center border-2 rounded-lg cursor-pointer hover:bg-blue-50 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                <i class="fas fa-building text-2xl mb-2"></i>
+                                <div class="font-semibold">לקוח עסקי</div>
+                                <div class="text-sm text-gray-500">כולל פרטי חברה</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- שדות ללקוח פרטי -->
+                <div id="privateFields">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">שם פרטי</label>
+                            <input type="text" class="form-control" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">שם משפחה</label>
+                            <input type="text" class="form-control" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">מספר ת.ז</label>
+                        <input type="text" class="form-control" name="privateId" required>
+                    </div>
+                </div>
+
+                <!-- שדות ללקוח עסקי -->
+                <div id="businessFields" style="display: none;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">שם פרטי</label>
+                            <input type="text" class="form-control" name="businessFirstName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">שם משפחה</label>
+                            <input type="text" class="form-control" name="businessLastName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">ח.פ / עוסק מורשה</label>
+                            <input type="text" class="form-control" name="businessId">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">שם חברה</label>
+                            <input type="text" class="form-control" name="companyName">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- פרטי התקשרות -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">טלפון</label>
+                        <input type="tel" class="form-control" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">אימייל</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                </div>
+
+                <!-- פרטי המוצר -->
+                <div class="form-group">
+                    <label class="form-label">מוצרים</label>
+                    <div id="productsContainer">
+                        <div class="product-item glass p-4 rounded-lg mb-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">סוג מכשיר</label>
+                                    <select class="form-control product-type" name="products[0][type]" required onchange="updateTotalPrice()">
+                                        <option value="">בחר סוג מכשיר</option>
+                                        <option value="magnet">Tracer Magnet</option>
+                                        <option value="connect">Tracer Connect</option>
+                                        <option value="go">Tracer Go</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">כמות</label>
+                                    <input type="number" class="form-control product-quantity" name="products[0][quantity]" min="1" value="1" required onchange="updateTotalPrice()">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">מחיר ליחידה (כולל מע"מ)</label>
+                                    <input type="number" class="form-control product-price" name="products[0][price]" required onchange="updateTotalPrice()">
+                                </div>
+                            </div>
+                            <button type="button" class="text-red-500 hover:text-red-700 mt-2" onclick="removeProduct(this)" style="display: none;">
+                                <i class="fas fa-trash ml-1"></i>
+                                הסר מוצר
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="mt-2 text-blue-500 hover:text-blue-700" onclick="addProduct()">
+                        <i class="fas fa-plus-circle ml-1"></i>
+                        הוסף מוצר נוסף
+                    </button>
+                </div>
+
+                <!-- סיכום מחירים -->
+                <div class="glass p-4 rounded-lg mt-4">
+                    <h3 class="text-lg font-semibold mb-4">סיכום מחירים</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="form-label">סה"כ לפני מע"מ</label>
+                            <input type="text" class="form-control" id="totalBeforeVAT" readonly>
+                        </div>
+                        <div>
+                            <label class="form-label">סה"כ כולל מע"מ</label>
+                            <input type="text" class="form-control" id="totalWithVAT" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- הערות כלליות להזמנה -->
+                <div class="form-group">
+                    <label class="form-label">הערות להזמנה</label>
+                    <textarea class="form-control" name="orderNotes" rows="3" placeholder="הערות נוספות בקשר להזמנה"></textarea>
+                </div>
+
+                <!-- פרטי משלוח -->
+                <div class="form-group">
+                    <label class="form-label">שיטת משלוח</label>
+                    <select class="form-control" name="deliveryMethod" required onchange="toggleDeliveryFields()">
+                        <option value="">בחר שיטת משלוח</option>
+                        <option value="home">משלוח עד הבית</option>
+                        <option value="pickup">נקודת איסוף</option>
+                    </select>
+                </div>
+
+                <!-- שדות משלוח -->
+                <div id="homeDeliveryFields" style="display: none;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">עיר</label>
+                            <input type="text" class="form-control" name="city" placeholder="שם העיר">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">כתובת</label>
+                            <input type="text" class="form-control" name="street" placeholder="רחוב ומספר בית">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">הערות למשלוח</label>
+                        <textarea class="form-control" name="deliveryNotes" rows="2" placeholder="הערות נוספות למשלוח, לדוגמה: קוד לבניין, הנחיות מיוחדות"></textarea>
+                    </div>
+                </div>
+
+                <div id="pickupFields" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">בחירת נקודת איסוף</label>
+                        <div class="mt-2 mb-4">
+                            <a href="https://www.pickuppoint.co.il/#pointsPickup" target="_blank" class="pickup-button">
+                                <i class="fas fa-map-marker-alt"></i>
+                                לחץ כאן לבחירת נקודת איסוף
+                            </a>
+                        </div>
+                        <div class="mt-4">
+                            <label class="form-label">הזן את נקודת האיסוף שבחרת</label>
+                            <input type="text" class="form-control" name="pickupPoint" placeholder="לדוגמה: חנות X, רחוב Y, עיר Z">
+                            <p class="text-sm text-gray-500 mt-1">
+                                <i class="fas fa-info-circle ml-1"></i>
+                                אנא העתק את פרטי נקודת האיסוף כפי שמופיעים במערכת פיקאפ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כפתור שליחה -->
+                <div class="text-center mt-8">
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane ml-2"></i>
+                        שלח הזמנה
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for order confirmation -->
+    <div id="confirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full mx-4">
+            <h2 class="text-xl font-bold mb-4 text-center">אישור פרטי הזמנה</h2>
+            
+            <div class="confirmation-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>שים לב!</strong>
+                    <p>יש לוודא שכל הפרטים נכונים ב-100% לפני השליחה. לא ניתן יהיה לערוך את הפרטים לאחר אישור ההזמנה.</p>
+                </div>
+            </div>
+
+            <div id="orderSummary" class="mb-6 max-h-96 overflow-y-auto"></div>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="submitOrder()" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                    <i class="fas fa-check ml-2"></i>
+                    אשר ושלח
+                </button>
+                <button onclick="closeModal()" class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                    <i class="fas fa-times ml-2"></i>
+                    חזור לעריכה
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Confirmation Modal -->
+    <div id="finalConfirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4 text-center">
+            <i class="fas fa-exclamation-circle text-4xl text-yellow-500 mb-4"></i>
+            <h2 class="text-xl font-bold mb-4">האם אתה בטוח שבדקת את כל הפרטים ב-100%?</h2>
+            <p class="text-gray-600 mb-6">לא ניתן יהיה לערוך את הפרטים לאחר השליחה</p>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="finalSubmit()" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                    <i class="fas fa-check ml-2"></i>
+                    כן, שלח
+                </button>
+                <button onclick="closeFinalModal()" class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                    <i class="fas fa-arrow-right ml-2"></i>
+                    חזור לבדיקה
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message" style="display: none;">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div>
+            <div class="font-bold">ההזמנה נקלטה בהצלחה! 🎯</div>
+            <div class="text-sm">כל הכבוד על סגירת העסקה!</div>
+        </div>
+    </div>
+
+    <!-- Sales Confirmation Modal -->
+    <div id="salesConfirmationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4 text-center">
+            <i class="fas fa-user-check text-4xl text-blue-500 mb-4"></i>
+            <h2 class="text-xl font-bold mb-4">אישור נציג מכירות</h2>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <p class="text-gray-800 mb-4">אני מאשר/ת כי:</p>
+                <div class="text-right space-y-4">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" id="priceConfirm">
+                        <span>וידאתי את נכונות המחירים מול הלקוח</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" id="detailsConfirm">
+                        <span>וידאתי את נכונות פרטי הלקוח והמשלוח</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-500" id="termsConfirm">
+                        <span>הסברתי ללקוח את תנאי ההתקשרות</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="flex justify-center gap-4">
+                <button onclick="confirmSalesCheck()" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed" id="salesConfirmBtn" disabled>
+                    <i class="fas fa-check ml-2"></i>
+                    מאשר/ת ומעביר/ה להמשך
+                </button>
+                <button onclick="closeSalesConfirmationModal()" class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                    <i class="fas fa-times ml-2"></i>
+                    חזור
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBusinessFields() {
+            const customerType = document.querySelector('input[name="customerType"]:checked').value;
+            const privateFields = document.getElementById('privateFields');
+            const businessFields = document.getElementById('businessFields');
+            const businessInputs = businessFields.querySelectorAll('input');
+            const privateInputs = privateFields.querySelectorAll('input');
+
+            if (customerType === 'private') {
+                privateFields.style.display = 'block';
+                businessFields.style.display = 'none';
+                // הפעלת שדות חובה ללקוח פרטי
+                privateInputs.forEach(input => input.required = true);
+                // ביטול שדות חובה ואיפוס שדות של לקוח עסקי
+                businessInputs.forEach(input => {
+                    input.required = false;
+                    input.value = '';
+                });
+            } else {
+                privateFields.style.display = 'none';
+                businessFields.style.display = 'block';
+                // ביטול שדות חובה ואיפוס שדות של לקוח פרטי
+                privateInputs.forEach(input => {
+                    input.required = false;
+                    input.value = '';
+                });
+                // הפעלת שדות חובה ללקוח עסקי
+                businessInputs.forEach(input => input.required = true);
+            }
+        }
+
+        // Add event listeners for radio buttons
+        document.querySelectorAll('input[name="customerType"]').forEach(radio => {
+            radio.addEventListener('change', toggleBusinessFields);
+        });
+
+        function toggleDeliveryFields() {
+            const deliveryMethod = document.querySelector('select[name="deliveryMethod"]').value;
+            const homeDeliveryFields = document.getElementById('homeDeliveryFields');
+            const pickupFields = document.getElementById('pickupFields');
+
+            if (deliveryMethod === 'home') {
+                homeDeliveryFields.style.display = 'block';
+                pickupFields.style.display = 'none';
+            } else if (deliveryMethod === 'pickup') {
+                homeDeliveryFields.style.display = 'none';
+                pickupFields.style.display = 'block';
+            }
+        }
+
+        function showConfirmationModal() {
+            const form = document.getElementById('orderForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const modal = document.getElementById('confirmationModal');
+            const summary = document.getElementById('orderSummary');
+            let summaryHTML = '<div class="space-y-4">';
+
+            const formData = new FormData(form);
+            const customerType = formData.get('customerType');
+            
+            for (let [key, value] of formData.entries()) {
+                if (value && !key.includes('products')) {
+                    if ((customerType === 'private' && !key.startsWith('business')) ||
+                        (customerType === 'business' && !key.startsWith('private')) ||
+                        (!key.startsWith('business') && !key.startsWith('private'))) {
+                        summaryHTML += `
+                            <div class="border-b pb-2">
+                                <div class="font-semibold">${getFieldLabel(key)}</div>
+                                <div class="text-gray-600">${value}</div>
+                            </div>
+                        `;
+                    }
+                }
+            }
+
+            summaryHTML += `
+                <div class="mt-6 mb-4">
+                    <h3 class="text-lg font-bold mb-4">פירוט מוצרים ומחירים</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+            `;
+
+            const products = document.querySelectorAll('.product-item');
+            let totalWithVAT = 0;
+
+            products.forEach((product, index) => {
+                const type = product.querySelector('.product-type').value;
+                const quantity = parseInt(product.querySelector('.product-quantity').value) || 0;
+                const price = parseFloat(product.querySelector('.product-price').value) || 0;
+                const subtotal = price * quantity;
+                totalWithVAT += subtotal;
+
+                summaryHTML += `
+                    <div class="mb-4 pb-4 ${index < products.length - 1 ? 'border-b' : ''}">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="font-semibold">סוג מכשיר:</div>
+                            <div>${type}</div>
+                            <div class="font-semibold">כמות:</div>
+                            <div>${quantity} יחידות</div>
+                            <div class="font-semibold">מחיר ליחידה:</div>
+                            <div>${price.toFixed(2)} ₪</div>
+                            <div class="font-semibold">סה"כ למוצר:</div>
+                            <div>${subtotal.toFixed(2)} ₪</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const totalBeforeVAT = totalWithVAT / 1.18;
+            const vatAmount = totalWithVAT - totalBeforeVAT;
+
+            summaryHTML += `
+                    </div>
+                    <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                        <div class="grid grid-cols-2 gap-2 text-lg">
+                            <div class="font-semibold">סה"כ לפני מע"מ:</div>
+                            <div>${totalBeforeVAT.toFixed(2)} ₪</div>
+                            <div class="font-semibold">מע"מ (18%):</div>
+                            <div>${vatAmount.toFixed(2)} ₪</div>
+                            <div class="font-bold text-xl mt-2 border-t pt-2">סה"כ כולל מע"מ:</div>
+                            <div class="font-bold text-xl mt-2 border-t pt-2">${totalWithVAT.toFixed(2)} ₪</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            summaryHTML += '</div>';
+            
+            summary.innerHTML = summaryHTML;
+            modal.style.display = 'flex';
+        }
+
+        function getFieldLabel(key) {
+            const labels = {
+                firstName: 'שם פרטי',
+                lastName: 'שם משפחה',
+                businessFirstName: 'שם פרטי',
+                businessLastName: 'שם משפחה',
+                businessId: 'ח.פ / עוסק מורשה',
+                privateId: 'מספר ת.ז',
+                companyName: 'שם חברה',
+                phone: 'טלפון',
+                email: 'אימייל',
+                deviceType: 'סוג מכשיר',
+                price: 'מחיר',
+                orderNotes: 'הערות להזמנה',
+                deliveryMethod: 'שיטת משלוח',
+                city: 'עיר',
+                street: 'כתובת',
+                deliveryNotes: 'הערות למשלוח',
+                pickupPoint: 'נקודת איסוף'
+            };
+            return labels[key] || key;
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        function submitOrder() {
+            document.getElementById('finalConfirmationModal').style.display = 'flex';
+        }
+
+        function closeFinalModal() {
+            document.getElementById('finalConfirmationModal').style.display = 'none';
+        }
+
+        function finalSubmit() {
+            const form = document.getElementById('orderForm');
+            const formData = new FormData(form);
+            const data = {};
+            const customerType = formData.get('customerType');
+            
+            console.log('התחלת שליחת טופס');
+            
+            for (let [key, value] of formData.entries()) {
+                if (!key.includes('products')) {
+                    if ((customerType === 'private' && !key.startsWith('business')) ||
+                        (customerType === 'business' && !key.startsWith('private')) ||
+                        (!key.startsWith('business') && !key.startsWith('private'))) {
+                        data[key] = value;
+                    }
+                }
+            }
+            
+            data.products = [];
+            const products = document.querySelectorAll('.product-item');
+            products.forEach(product => {
+                data.products.push({
+                    type: product.querySelector('.product-type').value,
+                    quantity: parseInt(product.querySelector('.product-quantity').value),
+                    price: parseFloat(product.querySelector('.product-price').value)
+                });
+            });
+
+            console.log('נתונים לשליחה:', data);
+
+            // יצירת טופס נסתר לשליחת הנתונים
+            const hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            hiddenForm.action = 'https://script.google.com/macros/s/AKfycbx1YHygzfAlXfSILyRyJcZoAfELZdEhWMBVlAc4tMmrRuIsCjLv0QNlA0cZlqZzA84I/exec';
+            hiddenForm.target = 'hidden-iframe';
+
+            // יצירת שדה נסתר עם הנתונים
+            const dataInput = document.createElement('input');
+            dataInput.type = 'hidden';
+            dataInput.name = 'data';
+            dataInput.value = JSON.stringify(data);
+            hiddenForm.appendChild(dataInput);
+
+            console.log('נתוני JSON לשליחה:', dataInput.value);
+
+            // יצירת iframe נסתר לקבלת התשובה
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden-iframe';
+            iframe.style.display = 'none';
+            
+            // טיפול בשגיאות
+            iframe.onerror = function(error) {
+                console.error('שגיאה בשליחת הטופס:', error);
+                alert('אירעה שגיאה בשליחת הטופס. אנא נסה שנית.');
+                if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+                if (document.body.contains(iframe)) document.body.removeChild(iframe);
+            };
+
+            // טיפול בתשובה מהשרת
+            iframe.onload = function() {
+                try {
+                    console.log('התקבלה תשובה מהשרת');
+                    
+                    // ניסיון לקרוא את התוכן של ה-iframe
+                    try {
+                        const iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+                        console.log('תוכן התשובה:', iframeContent.body.innerText);
+                    } catch (e) {
+                        console.log('לא ניתן לקרוא את תוכן התשובה:', e);
+                    }
+                    
+                    closeModal();
+                    closeFinalModal();
+                    
+                    const successMessage = document.getElementById('successMessage');
+                    successMessage.style.display = 'flex';
+                    successMessage.classList.add('success-animation');
+                    
+                    setTimeout(() => {
+                        successMessage.style.opacity = '0';
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                            successMessage.style.opacity = '1';
+                            form.reset();
+                            toggleBusinessFields();
+                            
+                            // בדיקה אם האלמנטים עדיין קיימים לפני הסרתם
+                            if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+                            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+                        }, 500);
+                    }, 5000);
+                } catch (error) {
+                    console.error('שגיאה בעיבוד התשובה:', error);
+                    console.error('פרטי השגיאה:', error.stack);
+                    alert('אירעה שגיאה בעיבוד התשובה מהשרת. אנא נסה שנית.');
+                    if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+                    if (document.body.contains(iframe)) document.body.removeChild(iframe);
+                }
+            };
+
+            // הוספת האלמנטים לדף ושליחת הטופס
+            document.body.appendChild(iframe);
+            document.body.appendChild(hiddenForm);
+            
+            try {
+                console.log('מנסה לשלוח את הטופס');
+                hiddenForm.submit();
+                console.log('הטופס נשלח');
+            } catch (error) {
+                console.error('שגיאה בשליחת הטופס:', error);
+                console.error('פרטי השגיאה:', error.stack);
+                alert('אירעה שגיאה בשליחת הטופס. אנא נסה שנית.');
+                if (document.body.contains(hiddenForm)) document.body.removeChild(hiddenForm);
+                if (document.body.contains(iframe)) document.body.removeChild(iframe);
+            }
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showConfirmationModal();
+        });
+
+        let productCounter = 1;
+
+        function addProduct() {
+            const container = document.getElementById('productsContainer');
+            const newProduct = document.createElement('div');
+            newProduct.className = 'product-item glass p-4 rounded-lg mb-4';
+            newProduct.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">סוג מכשיר</label>
+                        <select class="form-control product-type" name="products[${productCounter}][type]" required onchange="updateTotalPrice()">
+                            <option value="">בחר סוג מכשיר</option>
+                            <option value="magnet">Tracer Magnet</option>
+                            <option value="connect">Tracer Connect</option>
+                            <option value="go">Tracer Go</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">כמות</label>
+                        <input type="number" class="form-control product-quantity" name="products[${productCounter}][quantity]" min="1" value="1" required onchange="updateTotalPrice()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">מחיר ליחידה (כולל מע"מ)</label>
+                        <input type="number" class="form-control product-price" name="products[${productCounter}][price]" required onchange="updateTotalPrice()">
+                    </div>
+                </div>
+                <button type="button" class="text-red-500 hover:text-red-700 mt-2" onclick="removeProduct(this)">
+                    <i class="fas fa-trash ml-1"></i>
+                    הסר מוצר
+                </button>
+            `;
+            container.appendChild(newProduct);
+            productCounter++;
+            
+            const removeButtons = document.querySelectorAll('.product-item button');
+            removeButtons.forEach(button => button.style.display = 'inline-flex');
+            
+            updateTotalPrice();
+        }
+
+        function removeProduct(button) {
+            const productItem = button.closest('.product-item');
+            productItem.remove();
+            
+            const removeButtons = document.querySelectorAll('.product-item button');
+            if (removeButtons.length === 1) {
+                removeButtons[0].style.display = 'none';
+            }
+            
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            const products = document.querySelectorAll('.product-item');
+            let totalWithVAT = 0;
+            
+            products.forEach(product => {
+                const price = parseFloat(product.querySelector('.product-price').value) || 0;
+                const quantity = parseInt(product.querySelector('.product-quantity').value) || 0;
+                totalWithVAT += price * quantity;
+            });
+            
+            const totalBeforeVAT = totalWithVAT / 1.18;
+            
+            document.getElementById('totalBeforeVAT').value = totalBeforeVAT.toFixed(2) + ' ₪';
+            document.getElementById('totalWithVAT').value = totalWithVAT.toFixed(2) + ' ₪';
+        }
+
+        function closeSalesConfirmationModal() {
+            document.getElementById('salesConfirmationModal').style.display = 'none';
+        }
+
+        // מעקב אחר שינויים בצ'קבוקסים
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = ['priceConfirm', 'detailsConfirm', 'termsConfirm'];
+            checkboxes.forEach(id => {
+                document.getElementById(id).addEventListener('change', updateSalesConfirmButton);
+            });
+        });
+
+        function updateSalesConfirmButton() {
+            const allChecked = ['priceConfirm', 'detailsConfirm', 'termsConfirm'].every(id => 
+                document.getElementById(id).checked
+            );
+            document.getElementById('salesConfirmBtn').disabled = !allChecked;
+        }
+
+        function confirmSalesCheck() {
+            closeSalesConfirmationModal();
+            document.getElementById('finalConfirmationModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html> 
