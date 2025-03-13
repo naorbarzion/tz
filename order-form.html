@@ -168,6 +168,59 @@
             font-size: 1.5rem;
             color: #f59e0b;
         }
+
+        /* אנימציות לכפתורי תשלום */
+        .payment-button {
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .payment-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 70%);
+            transform: translateX(-100%);
+            transition: all 0.6s ease;
+        }
+
+        .payment-button:hover {
+            transform: translateY(-5px);
+        }
+
+        .payment-button:hover::after {
+            transform: translateX(100%);
+        }
+
+        .payment-button:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* אנימציות לתוכן התשלום */
+        .payment-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .payment-content.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .close-button {
+            transform: rotate(0deg);
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            transform: rotate(90deg);
+        }
     </style>
 </head>
 <body class="p-4">
@@ -467,6 +520,59 @@
                     <i class="fas fa-times ml-2"></i>
                     חזור
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- סקציית תשלומים -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="glass rounded-2xl p-8 shadow-2xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">תשלומים</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- תשלום חד פעמי -->
+                <div class="text-center">
+                    <button onclick="togglePayment('one-time')" 
+                            class="payment-button bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-xl hover:shadow-xl transition-all duration-300 w-full">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-credit-card text-xl"></i>
+                            <span class="text-lg font-bold">לחץ כאן לתשלום חד פעמי</span>
+                        </div>
+                        <div class="text-sm mt-2 text-blue-100">הזן פרטי כרטיס אשראי לתשלום</div>
+                    </button>
+                    <div id="one-time-payment" class="hidden mt-6 payment-content">
+                        <div class="relative bg-white rounded-xl shadow-2xl overflow-hidden">
+                            <button onclick="togglePayment('one-time')" 
+                                    class="close-button absolute top-4 left-4 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-all z-10 shadow-lg">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <iframe src="https://app.icount.co.il/m/8817b/c6904e9cp2cdu67d2d3?utm_source=iCount&utm_medium=paypage&utm_campaign=717" 
+                                    class="w-full h-[600px] rounded-lg"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- תשלום מנוי -->
+                <div class="text-center">
+                    <button onclick="togglePayment('subscription')" 
+                            class="payment-button bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-xl hover:shadow-xl transition-all duration-300 w-full">
+                        <div class="flex items-center justify-center gap-3">
+                            <i class="fas fa-sync text-xl"></i>
+                            <span class="text-lg font-bold">לחץ כאן לתשלום מנוי</span>
+                        </div>
+                        <div class="text-sm mt-2 text-green-100">הגדר תשלום חודשי קבוע</div>
+                    </button>
+                    <div id="subscription-payment" class="hidden mt-6 payment-content">
+                        <div class="relative bg-white rounded-xl shadow-2xl overflow-hidden">
+                            <button onclick="togglePayment('subscription')" 
+                                    class="close-button absolute top-4 left-4 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-all z-10 shadow-lg">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <iframe src="https://app.icount.co.il/m/d28cc/c6904e9cp2d1u67d2d3?utm_source=iCount&utm_medium=paypage&utm_campaign=721" 
+                                    class="w-full h-[600px] rounded-lg"></iframe>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -853,6 +959,37 @@
         function confirmSalesCheck() {
             closeSalesConfirmationModal();
             document.getElementById('finalConfirmationModal').style.display = 'flex';
+        }
+
+        function togglePayment(type) {
+            const oneTimePayment = document.getElementById('one-time-payment');
+            const subscriptionPayment = document.getElementById('subscription-payment');
+            
+            if (type === 'one-time') {
+                if (oneTimePayment.classList.contains('hidden')) {
+                    // פתיחה
+                    oneTimePayment.classList.remove('hidden');
+                    setTimeout(() => oneTimePayment.classList.add('show'), 50);
+                    subscriptionPayment.classList.remove('show');
+                    setTimeout(() => subscriptionPayment.classList.add('hidden'), 500);
+                } else {
+                    // סגירה
+                    oneTimePayment.classList.remove('show');
+                    setTimeout(() => oneTimePayment.classList.add('hidden'), 500);
+                }
+            } else {
+                if (subscriptionPayment.classList.contains('hidden')) {
+                    // פתיחה
+                    subscriptionPayment.classList.remove('hidden');
+                    setTimeout(() => subscriptionPayment.classList.add('show'), 50);
+                    oneTimePayment.classList.remove('show');
+                    setTimeout(() => oneTimePayment.classList.add('hidden'), 500);
+                } else {
+                    // סגירה
+                    subscriptionPayment.classList.remove('show');
+                    setTimeout(() => subscriptionPayment.classList.add('hidden'), 500);
+                }
+            }
         }
     </script>
 </body>
